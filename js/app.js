@@ -15,9 +15,12 @@ const checkMatch = (first, second) => {
         if (first.innerText === second.innerText) {
             console.log('Match')
             setTimeout(() => {
-                first.classList.add('front')
-                second.classList.add('front')
-              }, "2000");
+                first.style.visibility = 'hidden'
+                second.style.visibility = 'hidden'
+                // first.classList.add('front')
+                // second.classList.add('front')
+            }, "2000");
+            
             
         } else {
             console.log('No match')
