@@ -4,15 +4,34 @@ let secondCard;
 const boxes = document.querySelectorAll('.box')
 const container = document.querySelector('.container')
 
+const cardBack = (card) => {
+    card.classList.toggle('front')
+}
+// const cardFront = (card) => {
+//     console.log(card)
+//     card.target.classList.toggle('back')
+// }
+
 const checkMatch = (first, second) => {
+    console.log('first card', first)
+    console.log('second card', second)
     if (first && second) {
         if (first.innerText === second.innerText) {
-            alert('Match')
+            console.log('Match')
+            setTimeout(() => {
+                first.classList.add('front')
+                second.classList.add('front')
+              }, "2000");
+            
         } else {
-            alert('No match')
+            console.log('No match')
+            setTimeout(() => {
+                first.classList.add('front')
+                second.classList.add('front')
+              }, "2000");
         }
     } else {
-        alert('pick another card')
+        console.log('pick another card')
     }
 
 }
@@ -20,6 +39,9 @@ const checkMatch = (first, second) => {
 const setFirstCard = (e) => {
     firstCard = e.target
     firstCard.setAttribute('id', 'first')
+    console.log('first card', first)
+    //console.log('second card', second)
+    cardBack(firstCard)
     if (firstCard) {
         container.removeEventListener('click', setFirstCard)
         container.addEventListener('click', setSecondCard)
@@ -28,6 +50,9 @@ const setFirstCard = (e) => {
 const setSecondCard = (e) => {
     secondCard = e.target
     secondCard.setAttribute('id', 'second')
+    console.log('first card', firstCard)
+    console.log('second card', secondCard)
+    cardBack(secondCard)
     const second = document.querySelector('#second')
     const first = document.querySelector('#first')
     if (secondCard) {
@@ -38,3 +63,6 @@ const setSecondCard = (e) => {
 
 
 container.addEventListener('click', setFirstCard)
+// boxes.forEach((box) => {
+//     box.addEventListener('click', cardFlipper)
+// })
