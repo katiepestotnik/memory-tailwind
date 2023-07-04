@@ -10,13 +10,15 @@
 </head>
 <body class="h-screen">
     <div class="flex justify-center m-10 text-4xl">MEMORY</div>
-    <div class="flex flex-col justify-center w-1/2 m-auto  border-2 border-slate-400 p-2">
-        <label class='p-2 w-3/4 m-auto text-left'for='choice'>Choose the number of cards between 8 and 24 incrementing by 4, let's play!</label>
-        <input class='p-2 border-2 border-slate-200 w-1/2 m-auto'id='choice' type="number" placeholder="Number of Cards" step="4" min="8" max="24">
-        <input class='p-2 border-2 w-20 m-auto mt-2 bg-teal-500' type="button" value="PLAY">
+    <div class="choice-container flex flex-row justify-center w-1/2 m-auto  border-2 border-slate-400 p-2">
+        <div class='directions p-2 w-3/4 m-auto text-center'>How Many Cards?</div>
+        <input class='player-button p-2 border-2 w-20 m-auto mt-2 bg-teal-500' type="button" value="8">
+        <input class='player-button p-2 border-2 w-20 m-auto mt-2 bg-teal-500' type="button" value="12">
+        <input class='player-button p-2 border-2 w-20 m-auto mt-2 bg-teal-500' type="button" value="16">
+        <input class='player-button p-2 border-2 w-20 m-auto mt-2 bg-teal-500' type="button" value="20">
     </div>
     <div class="container border-2 border-slate-400 m-auto mt-5 w-3/4 h-fit grid grid-cols-4 grid-rows-6 gap-2 p-2">
-        <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>One</div>
+        <!-- <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>One</div>
         <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>Two</div>
         <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>One</div>
         <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>Two</div>
@@ -39,7 +41,7 @@
         <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>Eleven</div>
         <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>Twelve</div>
         <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'>Eleven</div>
-        <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20 text-teal-500'>Twelve</div>
+        <div class='box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20 text-teal-500'>Twelve</div> -->
     </div>
 </body>
 </html>

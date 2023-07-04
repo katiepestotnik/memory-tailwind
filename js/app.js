@@ -1,9 +1,44 @@
 let firstCard;
 let secondCard;
 
-const boxes = document.querySelectorAll('.box')
+//css classes for boxes
+//box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20
 const container = document.querySelector('.container')
+const choiceContainer = document.querySelector('.choice-container')
+const playerChoiceButton = document.querySelectorAll('.player-button')
+const directions = document.querySelector('.directions')
 
+const handleContent = () => {
+    const boxContent = document.querySelectorAll('.box')
+    boxContent.forEach((box, n) => {
+        if (n % 2 === 0) box.innerText = 'ONE'
+        else box.innerText = 'TWO'
+    })
+
+}
+
+const displayBoxes = (num) => {
+    for (let i = 0; i < num; i++) {
+        const boxesDiv = document.createElement('div')
+        boxesDiv.className = 'box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'
+        container.append(boxesDiv)
+        playerChoiceButton.forEach((button) => {
+            button.setAttribute('disabled', true)
+            button.style.backgroundColor = 'rgb(241 245 249)'
+            button.value = ''
+            directions.innerText = 'GOOD LUCK!!'
+        })
+    }
+    handleContent()
+}
+
+
+
+const handleChoice = (e) => {
+    const selection = Number(e.target.value)
+    displayBoxes(selection)
+}
+const boxes = document.querySelectorAll('.box')
 const cardBack = (card) => {
     card.classList.toggle('front')
 }
@@ -55,5 +90,5 @@ const setSecondCard = (e) => {
     }
     checkMatch(first, second)
 }
-
+choiceContainer.addEventListener('click', handleChoice)
 container.addEventListener('click', setFirstCard)
