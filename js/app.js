@@ -1,7 +1,6 @@
 let firstCard
 let secondCard
 let count
-let boxes
 const eight = ['3', '4' , '1', '4', '2', '2', '1', '3']
 const twelve = ['5', '3' , '6', '1', '2', '1', '4', '2', '5' , '6', '4', '3']
 const sixteen = ['8', '7' , '3', '1', '6', '5', '3', '7', '6' , '5', '8', '1', '2' , '2', '4', '4']
@@ -119,6 +118,7 @@ const playGame = (e) => {
     displayBoxes(selection)
     count = selection
     console.log('count', count)
+    playing = true
     const findFirst = (e) => {
         firstCard = e.target
         container.removeEventListener('click', findFirst)
@@ -130,7 +130,8 @@ const playGame = (e) => {
             showCard(secondCard)
             if (firstCard.innerText === secondCard.innerText) {
                 console.log('match')
-                count -=2
+                count -= 2
+                console.log(count)
                 setTimeout(() => {
                     firstCard.style.visibility = 'hidden'
                     secondCard.style.visibility = 'hidden'
@@ -147,8 +148,6 @@ const playGame = (e) => {
         container.addEventListener('click', findSecond)
     } 
     container.addEventListener('click', findFirst)
-
 }
-
 choiceContainer.addEventListener('click', playGame)
 
