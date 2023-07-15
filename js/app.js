@@ -1,6 +1,7 @@
-let firstCard;
-let secondCard;
-let count;
+let firstCard
+let secondCard
+let count
+let boxes
 const eight = ['3', '4' , '1', '4', '2', '2', '1', '3']
 const twelve = ['5', '3' , '6', '1', '2', '1', '4', '2', '5' , '6', '4', '3']
 const sixteen = ['8', '7' , '3', '1', '6', '5', '3', '7', '6' , '5', '8', '1', '2' , '2', '4', '4']
@@ -75,7 +76,7 @@ const handleContent = (n) => {
         boxContent[19].innerText = twenty[19]
     }
 }
-
+//disable buttons
 const disableChoices = () => {
     playerChoiceButton.forEach((button) => {
         button.setAttribute('disabled', true)
@@ -100,68 +101,54 @@ const displayBoxes = (num) => {
             container.className = `border-2 border-slate-400 m-auto mt-5 w-3/4 h-fit grid grid-cols-4 grid-rows-5 gap-2 p-2`
         }
         container.append(boxesDiv)
-
     }
     disableChoices()
     handleContent(num)
 }
-//run the displayBoxes accoring to # of cards selection click
-const handleChoice = (e) => {
-    const selection = Number(e.target.value)
-    count = selection
-    displayBoxes(selection)
-}
-choiceContainer.addEventListener('click', handleChoice)
-
-//toggle from back to front when user selects card, starts with front class
 const cardBack = (card) => {
     card.classList.toggle('front')
 }
+const showCard = (card) => {
+    cardBack(card)
 
-const checkMatch = (first, second) => {
-    // console.log('first card', first)
-    // console.log('second card', second)
-    if (first && second) {
-        if (first.innerText === second.innerText) {
-            console.log('Match')
+}
+
+//run the displayBoxes accoring to # of cards selection click
+const playGame = (e) => {
+    const selection = Number(e.target.value)
+    displayBoxes(selection)
+    count = selection
+    console.log('count', count)
+    const findFirst = (e) => {
+        firstCard = e.target
+        container.removeEventListener('click', findFirst)
+        showCard(firstCard)
+        console.log(firstCard)
+        const findSecond = (e) => {
+            secondCard = e.target
+            container.removeEventListener('click', findSecond)
+            showCard(secondCard)
+            if (firstCard.innerText === secondCard.innerText) {
+                console.log('match')
+                count -=2
+                setTimeout(() => {
+                    firstCard.style.visibility = 'hidden'
+                    secondCard.style.visibility = 'hidden'
+                }, 3000)
+
+            } else {
+                console.log('no match')
+            }
             setTimeout(() => {
-                first.style.visibility = 'hidden'
-                second.style.visibility = 'hidden'
-            }, "2000");
-            
-            
-        } else {
-            console.log('No match')
-            setTimeout(() => {
-                cardBack(first)
-                cardBack(second)
-              }, "2000");
+                firstCard.classList.toggle('front')
+                secondCard.classList.toggle('front')
+            }, 3000)
         }
-    } else {
-        console.log('pick another card')
-    }
+        container.addEventListener('click', findSecond)
+    } 
+    container.addEventListener('click', findFirst)
 
 }
 
-const setFirstCard = (e) => {
-    firstCard = e.target
-    firstCard.setAttribute('id', 'first')
-    cardBack(firstCard)
-    if (firstCard) {
-        container.removeEventListener('click', setFirstCard)
-        container.addEventListener('click', setSecondCard)
-    }
-}
-const setSecondCard = (e) => {
-    secondCard = e.target
-    secondCard.setAttribute('id', 'second')
-    cardBack(secondCard)
-    const second = document.querySelector('#second')
-    const first = document.querySelector('#first')
-    if (secondCard) {
-        container.removeEventListener('click', setSecondCard)
-    }
-    checkMatch(first, second)
-}
+choiceContainer.addEventListener('click', playGame)
 
-container.addEventListener('click', setFirstCard)
