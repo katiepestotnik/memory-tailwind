@@ -118,7 +118,6 @@ const playGame = (e) => {
     displayBoxes(selection)
     count = selection
     console.log('count', count)
-    playing = true
     const findFirst = (e) => {
         firstCard = e.target
         container.removeEventListener('click', findFirst)
@@ -136,9 +135,16 @@ const playGame = (e) => {
                     firstCard.style.visibility = 'hidden'
                     secondCard.style.visibility = 'hidden'
                 }, 3000)
+                console.log(count)
+                if (count > 0) {
+                    container.addEventListener('click', findFirst)
+                } else {
+                    container.innerHTML = '<div>YOU WIN!!</div>'
+                }
 
             } else {
                 console.log('no match')
+                container.addEventListener('click', findFirst)
             }
             setTimeout(() => {
                 firstCard.classList.toggle('front')
