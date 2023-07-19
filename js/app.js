@@ -1,7 +1,15 @@
 let firstCard
 let secondCard
 let count
-const eight = ['3', '4' , '1', '4', '2', '2', '1', '3']
+const eight = [
+    'https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1024x680.jpg',
+    'https://media.istockphoto.com/id/667787128/photo/dog-realxing-on-beach-chair.jpg?s=612x612&w=0&k=20&c=QDJCMfZBgw0zs5uMfrbVgfyTn9P28tpASyIitZsVJ5I=',
+    'https://www.akc.org/wp-content/uploads/2020/07/Golden-Retriever-puppy-standing-outdoors.jpg',
+    'https://media.istockphoto.com/id/667787128/photo/dog-realxing-on-beach-chair.jpg?s=612x612&w=0&k=20&c=QDJCMfZBgw0zs5uMfrbVgfyTn9P28tpASyIitZsVJ5I=',
+    'https://highlandcanine.com/wp-content/uploads/2021/04/pug-running-in-the-grass.jpg',
+    'https://highlandcanine.com/wp-content/uploads/2021/04/pug-running-in-the-grass.jpg',
+    'https://www.akc.org/wp-content/uploads/2020/07/Golden-Retriever-puppy-standing-outdoors.jpg',
+    'https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1024x680.jpg']
 const twelve = ['5', '3' , '6', '1', '2', '1', '4', '2', '5' , '6', '4', '3']
 const sixteen = ['8', '7' , '3', '1', '6', '5', '3', '7', '6' , '5', '8', '1', '2' , '2', '4', '4']
 const twenty = ['9', '2', '1', '4', '7', '6', '8', '10', '9', '8', '2', '3', '5', '6', '10', '7', '1', '4', '5', '3']
@@ -14,14 +22,14 @@ const directions = document.querySelector('.directions')
 const handleContent = (n) => {
     const boxContent = document.querySelectorAll('.box')
     if (n === 8) {
-        boxContent[0].innerText = eight[0]
-        boxContent[1].innerText = eight[1]
-        boxContent[2].innerText = eight[2]
-        boxContent[3].innerText = eight[3]
-        boxContent[4].innerText = eight[4]
-        boxContent[5].innerText = eight[5]
-        boxContent[6].innerText = eight[6]
-        boxContent[7].innerText = eight[7]    
+        boxContent[0].src = eight[0]
+        boxContent[1].src = eight[1]
+        boxContent[2].src = eight[2]
+        boxContent[3].src = eight[3]
+        boxContent[4].src = eight[4]
+        boxContent[5].src = eight[5]
+        boxContent[6].src = eight[6]
+        boxContent[7].src = eight[7]    
     } else if (n === 12) {
         boxContent[0].innerText = twelve[0]
         boxContent[1].innerText = twelve[1]
@@ -89,9 +97,15 @@ const disableChoices = () => {
 const displayBoxes = (num) => {
     for (let i = 0; i < num; i++) {
         const boxesDiv = document.createElement('div')
-        boxesDiv.className = 'box front bg-teal-500 border-2 border-slate-100 flex justify-center items-center h-20'
+        const boxesImg = document.createElement('img')
+        boxesDiv.style.backgroundImage = 'url("https://img.freepik.com/free-photo/puppy-that-is-walking-snow_1340-37228.jpg")'
+        boxesDiv.style.height = '250px'
+        boxesDiv.style.width = '250px'
+        boxesImg.alt = 'dog'
+        boxesImg.className = 'box invisible'
+        boxesDiv.append(boxesImg)
         if (num === 8) {
-            container.className = `border-2 border-slate-400 m-auto mt-5 w-3/4 h-fit grid grid-cols-2 grid-rows-4 gap-2 p-2`
+            container.className = `border-2 border-slate-400 m-auto mt-5 w-3/4 h-fit grid grid-cols-4 grid-rows-2 gap-2 p-2 items-center`
         } else if (num === 12) {
             container.className = `border-2 border-slate-400 m-auto mt-5 w-3/4 h-fit grid grid-cols-4 grid-rows-3 gap-2 p-2`
         } else if (num === 16) {
@@ -105,7 +119,10 @@ const displayBoxes = (num) => {
     handleContent(num)
 }
 const cardBack = (card) => {
-    card.classList.toggle('front')
+    console.log(card.firstChild)
+    const img = card.firstChild
+    img.classList.remove('invisible')
+    img.classList.add('visible')
 }
 const showCard = (card) => {
     cardBack(card)
@@ -127,11 +144,13 @@ const playGame = (e) => {
             secondCard = e.target
             container.removeEventListener('click', findSecond)
             showCard(secondCard)
-            if (firstCard.innerText === secondCard.innerText) {
+            if (firstCard.firstChild.src === secondCard.firstChild.src) {
                 console.log('match')
                 count -= 2
                 console.log(count)
                 setTimeout(() => {
+                    firstCard.firstChild.style.visibility = 'hidden'
+                    secondCard.firstChild.style.visibility = 'hidden'
                     firstCard.style.visibility = 'hidden'
                     secondCard.style.visibility = 'hidden'
                 }, 3000)
@@ -147,8 +166,8 @@ const playGame = (e) => {
                 container.addEventListener('click', findFirst)
             }
             setTimeout(() => {
-                firstCard.classList.toggle('front')
-                secondCard.classList.toggle('front')
+                firstCard.firstChild.classList.add('invisible')
+                secondCard.firstChild.classList.add('invisible')
             }, 3000)
         }
         container.addEventListener('click', findSecond)
